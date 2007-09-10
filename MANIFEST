@@ -1,0 +1,9 @@
+README
+MANIFEST
+SST.pm
+ChangeLog
+pod2sst
+Makefile.PL
+t/00_compile.t
+t/05_pod2prologue.t
+t/10_pod2sst.t

@@ -1,0 +1,41 @@
+Pod::SST - convert Pod to SST prologue using Pod::Simple
+
+This is version 0.01 of Pod::SST. This module can be used to convert Pod data
+to SST-style prologues. It uses Pod::Simple as a basis. A pod2sst command is
+provided.
+
+INSTALLATION
+
+ % perl Makefile.PL
+ % make
+ % make test
+ % make install
+
+REQUIREMENTS
+
+This module requires the Starlink::Prologue module. This module is currently
+not on CPAN; email Tim Jenness (t.jenness@jach.hawaii.edu) for it.
+
+AUTHOR
+
+Brad Cavanagh <b.cavanagh@jach.hawaii.edu>
+
+Copyright (C) Science and Technology Facilities Council. All Rights Reserved.
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful,but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+Place, Suite 330, Boston, MA 02111-1307, USA
+
+CHANGES
+
+v0.01
+    - Initial release.
