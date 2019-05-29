@@ -1,11 +1,11 @@
-# Makefile for Pod::LaTeX
+# Makefile for Pod::SST
 
 use ExtUtils::MakeMaker;
 
 # Write the makefile
 WriteMakefile(
               'NAME'      => 'Pod::SST',
-              'VERSION_FROM' => 'SST.pm',
+              'VERSION_FROM' => 'lib/Pod/SST.pm',
               'EXE_FILES' => [ 'pod2sst' ],
               'PREREQ_PM' => {
                               Pod::Simple::Methody => 0,
@@ -14,6 +14,6 @@ WriteMakefile(
                              },
               'dist'      => { COMPRESS => "gzip -9f" },
               ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
-               (ABSTRACT_FROM => 'SST.pm',
+               (ABSTRACT_FROM => 'lib/Pod/SST.pm',
                 AUTHOR     => 'Brad Cavanagh <b.cavanagh@jach.hawaii.edu>') : ()),
 );

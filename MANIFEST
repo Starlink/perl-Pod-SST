@@ -1,6 +1,6 @@
 README
 MANIFEST
-SST.pm
+lib/Pod/SST.pm
 ChangeLog
 pod2sst
 Makefile.PL
