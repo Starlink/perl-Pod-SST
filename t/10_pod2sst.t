@@ -8,11 +8,6 @@
 use Test::More tests => 4;
 use strict;
 
-# Set up an END block to remove the test file.
-END {
-  unlink "test.sst";
-};
-
 require_ok( "Pod::SST" );
 
 # Read in the expected SST prologue from the DATA filehandle and store
