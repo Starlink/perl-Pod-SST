@@ -49,7 +49,6 @@ sub new {
   $new->{'CurSect'} = '';
   $new->{'CurBuff'} = '';
   $new->{'Indent'} = 0;
-  $new->{'InOver'} = 0;
   $new->{'Prologue'} = new Starlink::Prologue;
   $new->{'Prologue'}->comment_char( '#' );
   $new->{'Prologue'}->language( "Perl" );
@@ -67,23 +66,29 @@ sub start_item_bullet {
 
 sub start_item_text {
   my $self = shift;
-  $self->{'Indent'} = 0;
+  $self->{'Indent'} --;
   if( $self->{'CurBuff'} ne '' ) {
     $self->{'CurBuff'} .= "\n";
   }
 }
 
-sub start_over_text { $_[0]{'InOver'} = 1; }
+sub start_over_text {
+  my $self = shift;
+  $self->{'Indent'} ++;
+}
 
 sub end_item_text {
   my $self = shift;
-  if( $self->{'InOver'} ) {
-    $self->{'CurBuff'} .= "\n";
-    $self->{'Indent'} = 3;
-  }
+  $self->{'CurBuff'} .= "\n";
+  $self->_update_prologue;
+  $self->{'Indent'} ++;
 }
 
-sub end_over_text { $_[0]{'InOver'} = 0; $_[0]{'CurBuff'} .= "\n"; }
+sub end_over_text {
+  my $self = shift;
+  $self->{'Indent'} --;
+  $self->{'CurBuff'} .= "\n";
+}
 sub end_Para { $_[0]->_update_prologue };
 sub end_item_bullet { $_[0]->_update_prologue }
 
@@ -92,7 +97,6 @@ sub handle_text {
   if( $self->{'CurSect'} eq '' ) {
     $self->{'CurSect'} = $text;
     $self->{'CurBuff'} = '';
-    $self->{'Indent'} = 0;
   } else {
     # Check to see if we're in the 'name' section. If we are, we need
     # to split the text on -- or - to get the 'purpose'.
@@ -112,8 +116,8 @@ sub _update_prologue {
   my $self = shift;
 
   my $method = lc( $self->{'CurSect'} );
-  my $indent = " " x $self->{'Indent'};
-  my @text = split /\n/, Text::Wrap::wrap( '',$indent,$self->{'CurBuff'} );
+  my $indent = " " x (3 * $self->{'Indent'});
+  my @text = split /\n/, Text::Wrap::wrap( $indent,$indent,$self->{'CurBuff'} );
 
   if( $self->{'Prologue'}->can( "$method" ) ) {
     if( $method eq 'description' &&
